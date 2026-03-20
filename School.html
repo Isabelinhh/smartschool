@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart School</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <div class="header">Smart School</div>
+
+  <!-- LOGIN -->
+  <div id="login" class="screen active">
+    <input type="email" placeholder="Digite seu e-mail">
+    <input type="password" placeholder="Digite sua senha">
+    <button onclick="entrar()">Entrar</button>
+  </div>
+
+  <!-- HOME -->
+  <div id="home" class="screen">
+    <div class="card green">✔ Problemas de matemática<br>Para amanhã 9:00</div>
+    <div class="card red">✖ Redação sobre meio ambiente<br>Para amanhã 11:00</div>
+  </div>
+
+  <!-- TAREFAS -->
+  <div id="tarefas" class="screen">
+    <div class="task-box">
+      <strong>Matemática</strong><br>
+      Problemas para amanhã
+    </div>
+    <button>Enviar Tarefa</button>
+  </div>
+
+  <!-- MENU -->
+  <div class="tabs">
+    <button onclick="trocarTela('home')">Home</button>
+    <button onclick="trocarTela('tarefas')">Tarefas</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
