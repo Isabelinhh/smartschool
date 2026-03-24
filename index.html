@@ -1,45 +1,265 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart School</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
-<div class="app">
-  <div class="header">Smart School</div>
-
-  <!-- LOGIN -->
-  <div id="login" class="screen active">
-    <input type="email" placeholder="Digite seu e-mail">
-    <input type="password" placeholder="Digite sua senha">
-    <button onclick="entrar()">Entrar</button>
-  </div>
-
-  <!-- HOME -->
-  <div id="home" class="screen">
-    <div class="card green">✔ Problemas de matemática<br>Para amanhã 9:00</div>
-    <div class="card red">✖ Redação sobre meio ambiente<br>Para amanhã 11:00</div>
-  </div>
-
-  <!-- TAREFAS -->
-  <div id="tarefas" class="screen">
-    <div class="task-box">
-      <strong>Matemática</strong><br>
-      Problemas para amanhã
+  <!-- ===================== TELA 1: LOGIN ===================== -->
+  <div class="screen active" id="screen-login">
+    <div class="login-bg">
+      <div class="login-blob blob1"></div>
+      <div class="login-blob blob2"></div>
     </div>
-    <button>Enviar Tarefa</button>
+    <div class="login-card">
+      <div class="logo-circle">
+        <img src="" alt="Logo" />
+        <span class="logo-label">Smart School</span>
+      </div>
+
+      <div class="input-group">
+        <i class="fa fa-envelope input-icon"></i>
+        <input type="email" placeholder="Digite seu e-mail" id="login-email" />
+      </div>
+      <div class="input-group">
+        <i class="fa fa-lock input-icon"></i>
+        <input type="password" placeholder="Digite sua senha" id="login-senha" />
+        <i class="fa fa-eye input-icon-right toggle-password"></i>
+      </div>
+
+      <a href="#" class="forgot-link">Esqueceu sua senha ?</a>
+
+      <button class="btn-primary" id="btn-entrar" onclick="goTo('screen-painel')">Entrar</button>
+
+      <div class="divider"><span>ou</span></div>
+
+      <div class="social-login">
+        <button class="social-btn google"><i class="fab fa-google"></i></button>
+        <button class="social-btn facebook"><i class="fab fa-facebook-f"></i></button>
+      </div>
+
+      <p class="register-text">Novo por aqui? <a href="#" class="link-red">Cadastre-se</a></p>
+    </div>
   </div>
 
-  <!-- MENU -->
-  <div class="tabs">
-    <button onclick="trocarTela('home')">Home</button>
-    <button onclick="trocarTela('tarefas')">Tarefas</button>
-  </div>
-</div>
+  <!-- ===================== TELA 2: PAINEL + LISTA (ROLÁVEL) ===================== -->
+  <div class="screen" id="screen-painel">
 
-<script src="script.js"></script>
+    <!-- Header fixo no topo -->
+    <div class="top-bar">
+      <div>
+        <p class="greeting">Olá, Carlos 👋</p>
+        <p class="sub-greeting">Tudo pronto para estudar?</p>
+      </div>
+      <div class="avatar-wrap">
+        <img src="https://img.icons8.com/color/48/user-male-circle--v1.png" class="avatar" alt="Avatar" />
+      </div>
+    </div>
+  
+
+    <!-- Área rolável -->
+    <div class="scroll-content">
+
+      <div class="date-card">
+        <p class="date-label">Ter, Abril 26</p>
+        <p class="date-sub"><span class="date-num">4</span> tarefas para hoje</p>
+      </div>
+
+      <div class="quick-menu">
+        <div class="quick-item">
+          <div class="quick-icon blue"><i class="fa fa-folder"></i></div>
+          <span>Materiais</span>
+        </div>
+        <div class="quick-item" onclick="goTo('screen-tarefas')" style="cursor:pointer;">
+          <div class="quick-icon blue"><i class="fa fa-tasks"></i></div>
+          <span>Tarefas</span>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon red"><i class="fa fa-calendar"></i></div>
+          <span>Calendário</span>
+          <span class="badge-dot red-dot"></span>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon blue"><i class="fa fa-comment"></i></div>
+          <span>Mensagens</span>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <span class="section-title">Proximas Tarefas</span>
+        <a href="#" class="ver-todas" onclick="goTo('screen-tarefas'); return false;">Ver todas</a>
+      </div>
+
+      <div class="task-item" onclick="goTo('screen-tarefas')" style="cursor:pointer;">
+        <div class="task-check done"><i class="fa fa-check"></i></div>
+        <div class="task-info">
+          <p class="task-name">Problemas de matemática</p>
+          <p class="task-date">Para amanhã, 09:00</p>
+        </div>
+        <i class="fa fa-ellipsis-h task-more"></i>
+      </div>
+
+      <div class="task-item" onclick="goTo('screen-tarefas')" style="cursor:pointer;">
+        <div class="task-check pending"><i class="fa fa-bookmark"></i></div>
+        <div class="task-info">
+          <p class="task-name">Redação sobre o meio ambiente</p>
+          <p class="task-date">Para amanhã, 11:00</p>
+        </div>
+        <i class="fa fa-ellipsis-h task-more"></i>
+      </div>
+
+      <div class="section-header">
+        <span class="section-title">Materiais Recentes</span>
+        <i class="fa fa-plus-circle add-icon"></i>
+      </div>
+
+      <div class="material-item">
+        <div class="mat-icon pdf"><i class="fa fa-file-pdf"></i></div>
+        <span class="mat-name">Lista de exercícios.pdf</span>
+      </div>
+
+      <!-- ── DIVISOR ── -->
+      <div class="section-divider">
+        <div class="divider-line"></div>
+        <span class="divider-label"></span>
+        <div class="divider-line"></div>
+      </div>
+
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" id="tab-pendentes" onclick="switchTab('pendentes')">Pendentes</button>
+        <button class="tab" id="tab-concluidas" onclick="switchTab('concluidas')">Concluídas</button>
+      </div>
+
+      <!-- Pendentes -->
+      <div class="task-cards" id="lista-pendentes">
+        <div class="task-card" onclick="goTo('screen-tarefas')">
+          <div class="card-check done"><i class="fa fa-check"></i></div>
+          <div class="card-body">
+            <p class="card-title">Problemas de matemática</p>
+            <p class="card-sub">Para amanhã, 9:00</p>
+            <p class="card-desc">Lista de problemas resolvidos</p>
+          </div>
+        </div>
+        <div class="task-card" onclick="goTo('screen-tarefas')">
+          <div class="card-check fail"><i class="fa fa-times"></i></div>
+          <div class="card-body">
+            <p class="card-title">Redação sobre o meio ambiente</p>
+            <p class="card-sub">Para amanhã, 9:00</p>
+            <p class="card-desc">Lista de problemas resolvidos</p>
+          </div>
+        </div>
+        <div class="task-card" onclick="goTo('screen-tarefas')">
+          <div class="card-check done"><i class="fa fa-check"></i></div>
+          <div class="card-body">
+            <p class="card-title">Leitura capítulo 5</p>
+            <p class="card-sub">Para amanhã, 9:00</p>
+            <p class="card-desc">Lista de problemas resolvidos</p>
+          </div>
+        </div>
+        <div class="task-card" onclick="goTo('screen-tarefas')">
+          <div class="card-check fail"><i class="fa fa-times"></i></div>
+          <div class="card-body">
+            <p class="card-title">Mapa mental de história</p>
+            <p class="card-sub">Para amanhã, 9:00</p>
+            <p class="card-desc">Lista de problemas resolvidos</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Concluídas -->
+      <div class="task-cards hidden" id="lista-concluidas">
+        <div class="task-card">
+          <div class="card-check done"><i class="fa fa-check"></i></div>
+          <div class="card-body">
+            <p class="card-title">Exercícios de física</p>
+            <p class="card-sub">Ontem, 14:00</p>
+            <p class="card-desc">Capítulo 3 concluído</p>
+          </div>
+        </div>
+        <div class="task-card">
+          <div class="card-check done"><i class="fa fa-check"></i></div>
+          <div class="card-body">
+            <p class="card-title">Resumo de história</p>
+            <p class="card-sub">Ontem, 16:00</p>
+            <p class="card-desc">Páginas 40 a 55 resumidas</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="height: 80px;"></div>
+    </div><!-- /scroll-content -->
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active"><i class="fa fa-home"></i><span>Início</span></button>
+      <button class="nav-btn"><i class="fa fa-book"></i><span>Materiais</span></button>
+      <button class="nav-btn"><i class="fa fa-comment-dots"></i><span>Mensagens</span></button>
+      <button class="nav-btn"><i class="fa fa-cog"></i><span>Configuração</span></button>
+    </nav>
+  </div>
+
+  <!-- ===================== TELA 3: DETALHE DA TAREFA (ROLÁVEL) ===================== -->
+  <div class="screen" id="screen-tarefas">
+
+    <!-- Header fixo -->
+    <div class="detail-top-bar">
+      <button class="back-btn" onclick="goTo('screen-painel')"><i class="fa fa-arrow-left"></i></button>
+      <span class="detail-title">Tarefas</span>
+      <button class="search-btn"><i class="fa fa-search"></i></button>
+    </div>
+
+    <!-- Área rolável -->
+    <div class="scroll-content">
+
+      <div class="subject-badge">
+        <span>Matemática</span>
+        <i class="fa fa-check"></i>
+      </div>
+
+      <div class="detail-card">
+        <h2 class="detail-task-title">Problemas de matemática</h2>
+        <p class="detail-due">Para amanhã 09:00</p>
+
+        <div class="todo-section">
+          <p class="todo-label">A fazer</p>
+          <p class="todo-desc">Subir a lista de problemas resolvidos</p>
+        </div>
+
+        <button class="btn-enviar">Enviar Tarefa</button>
+
+        <div class="materials-section">
+          <p class="mat-section-title">Materiais da Tarefa</p>
+          <div class="mat-file">
+            <div class="mat-icon-sm pdf"><i class="fa fa-file-pdf"></i></div>
+            <div>
+              <p class="mat-file-name">Lista de problemas.pdf</p>
+              <p class="mat-file-date">Ontem</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="instructions-section">
+          <p class="instr-title">Instruções</p>
+          <div class="instr-item">
+            <img src="https://img.icons8.com/color/40/user-male-circle--v1.png" class="instr-avatar" alt="Prof" />
+            <div class="instr-body">
+              <p class="instr-meta">Prof. Ricardo <span class="instr-time">Ontem, 20:30</span></p>
+              <p class="instr-text">Carlos lembre de conferir a fórmula de baskára antes de resolver a questão 3</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height: 32px;"></div>
+    </div><!-- /scroll-content -->
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
