@@ -18,8 +18,7 @@
     </div>
     <div class="login-card">
       <div class="logo-circle">
-        <img src="" alt="Logo" />
-        <span class="logo-label">Smart School</span>
+        <img src="img/logo.png" alt="Logo" />
       </div>
 
       <div class="input-group">
@@ -34,7 +33,7 @@
 
       <a href="#" class="forgot-link">Esqueceu sua senha ?</a>
 
-      <button class="btn-primary" id="btn-entrar" onclick="goTo('screen-painel')">Entrar</button>
+      <button class="btn-primary" id="btn-entrar">Entrar</button>
 
       <div class="divider"><span>ou</span></div>
 
@@ -47,10 +46,9 @@
     </div>
   </div>
 
-  <!-- ===================== TELA 2: PAINEL + LISTA (ROLÁVEL) ===================== -->
+  <!-- ===================== TELA 2: PAINEL ===================== -->
   <div class="screen" id="screen-painel">
 
-    <!-- Header fixo no topo -->
     <div class="top-bar">
       <div>
         <p class="greeting">Olá, Carlos 👋</p>
@@ -60,9 +58,7 @@
         <img src="https://img.icons8.com/color/48/user-male-circle--v1.png" class="avatar" alt="Avatar" />
       </div>
     </div>
-  
 
-    <!-- Área rolável -->
     <div class="scroll-content">
 
       <div class="date-card">
@@ -71,7 +67,8 @@
       </div>
 
       <div class="quick-menu">
-        <div class="quick-item">
+        <!-- Materiais → abre screen-materiais -->
+        <div class="quick-item" onclick="goTo('screen-materiais')" style="cursor:pointer;">
           <div class="quick-icon blue"><i class="fa fa-folder"></i></div>
           <span>Materiais</span>
         </div>
@@ -123,13 +120,32 @@
         <span class="mat-name">Lista de exercícios.pdf</span>
       </div>
 
-      <!-- ── DIVISOR ── -->
-      <div class="section-divider">
-        <div class="divider-line"></div>
-        <span class="divider-label"></span>
-        <div class="divider-line"></div>
-      </div>
+      <div style="height: 80px;"></div>
+    </div><!-- /scroll-content -->
 
+    <nav class="bottom-nav">
+      <button class="nav-btn active" onclick="goTo('screen-painel')"><i class="fa fa-home"></i><span>Início</span></button>
+      <!-- Materiais → abre screen-materiais -->
+      <button class="nav-btn" onclick="goTo('screen-materiais')"><i class="fa fa-book"></i><span>Materiais</span></button>
+      <button class="nav-btn"><i class="fa fa-comment-dots"></i><span>Mensagens</span></button>
+      <button class="nav-btn"><i class="fa fa-cog"></i><span>Configuração</span></button>
+    </nav>
+  </div>
+
+  <!-- ===================== TELA 3: MATERIAIS (TABS) ===================== -->
+  <div class="screen" id="screen-materiais">
+
+    <div class="top-bar">
+      <div>
+        <p class="greeting">Materiais 📚</p>
+        <p class="sub-greeting">Suas tarefas e atividades</p>
+      </div>
+      <div class="avatar-wrap">
+        <img src="https://img.icons8.com/color/48/user-male-circle--v1.png" class="avatar" alt="Avatar" />
+      </div>
+    </div>
+
+    <div class="scroll-content">
 
       <!-- Tabs -->
       <div class="tabs">
@@ -196,25 +212,24 @@
       <div style="height: 80px;"></div>
     </div><!-- /scroll-content -->
 
+    <!-- Bottom nav com "Início" ativo -->
     <nav class="bottom-nav">
-      <button class="nav-btn active"><i class="fa fa-home"></i><span>Início</span></button>
-      <button class="nav-btn"><i class="fa fa-book"></i><span>Materiais</span></button>
+      <button class="nav-btn" onclick="goTo('screen-painel')"><i class="fa fa-home"></i><span>Início</span></button>
+      <button class="nav-btn active"><i class="fa fa-book"></i><span>Materiais</span></button>
       <button class="nav-btn"><i class="fa fa-comment-dots"></i><span>Mensagens</span></button>
       <button class="nav-btn"><i class="fa fa-cog"></i><span>Configuração</span></button>
     </nav>
   </div>
 
-  <!-- ===================== TELA 3: DETALHE DA TAREFA (ROLÁVEL) ===================== -->
+  <!-- ===================== TELA 4: DETALHE DA TAREFA ===================== -->
   <div class="screen" id="screen-tarefas">
 
-    <!-- Header fixo -->
     <div class="detail-top-bar">
       <button class="back-btn" onclick="goTo('screen-painel')"><i class="fa fa-arrow-left"></i></button>
       <span class="detail-title">Tarefas</span>
       <button class="search-btn"><i class="fa fa-search"></i></button>
     </div>
 
-    <!-- Área rolável -->
     <div class="scroll-content">
 
       <div class="subject-badge">

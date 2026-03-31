@@ -1,24 +1,34 @@
 // ==============================
-//   SMART SCHOOL — app.js
+//   SMART SCHOOL — app.js (VERSÃO COMPLETA E FUNCIONANDO)
 // ==============================
 
 /**
- * Navega entre telas (sempre fullscreen, uma por vez)
+ * Navegação entre telas - Versão que realmente funciona
  */
 function goTo(screenId) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  console.log('🔄 Indo para:', screenId);
+
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.style.display = 'none';
+    screen.classList.remove('active');
+  });
+
   const target = document.getElementById(screenId);
   if (target) {
-    target.classList.add('active');
-    // Volta ao topo do scroll-content
-    const sc = target.querySelector('.scroll-content');
-    if (sc) sc.scrollTop = 0;
-    window.scrollTo(0, 0);
+    setTimeout(() => {
+      target.style.display = 'flex';
+      target.classList.add('active');
+
+      const scrollContent = target.querySelector('.scroll-content');
+      if (scrollContent) scrollContent.scrollTop = 0;
+
+      console.log('✅ Tela alterada com sucesso:', screenId);
+    }, 20);
   }
 }
 
 /**
- * Alterna aba Pendentes / Concluídas
+ * Alterna entre abas Pendentes e Concluídas
  */
 function switchTab(tab) {
   document.getElementById('tab-pendentes').classList.toggle('active', tab === 'pendentes');
@@ -28,7 +38,7 @@ function switchTab(tab) {
 }
 
 /**
- * Toggle visibilidade da senha
+ * Toggle senha (olho)
  */
 document.querySelector('.toggle-password')?.addEventListener('click', function () {
   const input = document.getElementById('login-senha');
@@ -39,18 +49,21 @@ document.querySelector('.toggle-password')?.addEventListener('click', function (
 });
 
 /**
- * Botão Entrar — shake se campos vazios, senão navega
+ * Botão Entrar
  */
 document.getElementById('btn-entrar')?.addEventListener('click', function (e) {
   e.stopPropagation();
+
   const email = document.getElementById('login-email').value.trim();
   const senha = document.getElementById('login-senha').value.trim();
 
   if (!email || !senha) {
     const card = document.querySelector('.login-card');
-    card.style.animation = 'none';
-    void card.offsetHeight;
-    card.style.animation = 'shake 0.4s ease';
+    if (card) {
+      card.style.animation = 'none';
+      void card.offsetHeight;
+      card.style.animation = 'shake 0.4s ease';
+    }
     return;
   }
 
@@ -58,11 +71,13 @@ document.getElementById('btn-entrar')?.addEventListener('click', function (e) {
 });
 
 /**
- * Botão Enviar Tarefa — feedback visual
+ * Botão Enviar Tarefa
  */
 document.querySelector('.btn-enviar')?.addEventListener('click', function () {
   if (this.disabled) return;
+
   const original = this.textContent;
+
   this.textContent = '✓ Enviado!';
   this.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
   this.style.boxShadow = '0 6px 20px rgba(34,197,94,0.4)';
@@ -77,16 +92,20 @@ document.querySelector('.btn-enviar')?.addEventListener('click', function () {
 });
 
 /**
- * Animação de entrada dos cards ao trocar de tela
+ * Animação de entrada dos cards
  */
 function animateIn(screenEl) {
+  if (!screenEl) return;
+
   const items = screenEl.querySelectorAll(
     '.task-card, .task-item, .material-item, .date-card, .detail-card, .subject-badge'
   );
+
   items.forEach((el, i) => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(16px)';
-    el.style.transition = `opacity 0.3s ease ${i * 0.06}s, transform 0.3s ease ${i * 0.06}s`;
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.35s ease ${i * 0.07}s, transform 0.35s ease ${i * 0.07}s`;
+
     requestAnimationFrame(() => {
       el.style.opacity = '1';
       el.style.transform = 'translateY(0)';
@@ -94,11 +113,11 @@ function animateIn(screenEl) {
   });
 }
 
-// Observa mudanças de tela ativa para disparar animação
-const observer = new MutationObserver(mutations => {
-  mutations.forEach(m => {
-    if (m.target.classList.contains('active') && m.type === 'attributes') {
-      animateIn(m.target);
+// Observer para animações
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.target.classList.contains('active')) {
+      animateIn(mutation.target);
     }
   });
 });
@@ -108,11 +127,22 @@ document.querySelectorAll('.screen').forEach(s => {
 });
 
 /**
- * Init
+ * Inicialização
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Garante que começa no login
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-login').classList.add('active');
-  animateIn(document.getElementById('screen-login'));
+  console.log('✅ Smart School JS carregado com sucesso');
+
+  // Estado inicial limpo
+  document.querySelectorAll('.screen').forEach(s => {
+    s.style.display = 'none';
+    s.classList.remove('active');
+  });
+
+  // Ativa tela de login
+  const loginScreen = document.getElementById('screen-login');
+  if (loginScreen) {
+    loginScreen.style.display = 'flex';
+    loginScreen.classList.add('active');
+    animateIn(loginScreen);
+  }
 });
